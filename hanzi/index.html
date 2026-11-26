@@ -6,6 +6,7 @@
 <title>每日识字</title>
 <meta name="description" content="每天十分钟，积累华文字库">
 <meta name="theme-color" content="#c8102e">
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
@@ -18,14 +19,14 @@
   --hz:"KaiTi","STKaiti","Kaiti SC","BiauKai","Noto Serif SC","Songti SC",serif;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
+  :root:not([data-theme="light"]){color-scheme:dark;
     --bg:#1b1816; --card:#26221f; --ink:#f3ece4; --muted:#a99d93; --line:#3a332e;
     --red:#ff5a6e; --red-soft:#3a1f23; --gold:#f2b84b; --gold-soft:#3a2f1a;
     --green:#5fd08d; --green-soft:#1c3326; --blue:#79a6ff; --blue-soft:#1d2a44;
     --grid:#5a3a3d; --shadow:0 2px 0 rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3);
   }
 }
-:root[data-theme="dark"]{
+:root[data-theme="dark"]{color-scheme:dark;
   --bg:#1b1816; --card:#26221f; --ink:#f3ece4; --muted:#a99d93; --line:#3a332e;
   --red:#ff5a6e; --red-soft:#3a1f23; --gold:#f2b84b; --gold-soft:#3a2f1a;
   --green:#5fd08d; --green-soft:#1c3326; --blue:#79a6ff; --blue-soft:#1d2a44;
@@ -36,7 +37,7 @@ html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:"Nunito","Noto Sans SC",system-ui,sans-serif;
   min-height:100vh;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
-.wrap{max-width:720px;margin:0 auto;padding:16px 16px 48px}
+.wrap{max-width:720px;margin:0 auto;padding-block:16px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .hz{font-family:var(--hz);font-weight:400}
 h1,h2,h3{margin:0}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}

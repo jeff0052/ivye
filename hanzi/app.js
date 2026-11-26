@@ -1,6 +1,8 @@
 /* 每日识字 — daily Chinese character practice with spaced repetition.
- * All progress is stored in this browser's localStorage (per device).
- * Use 家长设置 → 备份 to move progress between devices. */
+ * Progress is kept in this browser's localStorage. When the page runs as a
+ * claude.ai artifact with the `db` capability, each kid's progress is also
+ * synced to the artifact database (one document per kid), so it follows
+ * the family across devices. 家长设置 → 备份 still works everywhere. */
 (function () {
   'use strict';
 
@@ -30,15 +32,75 @@
 
   // ---------- storage ----------
   const KEY = 'hanzi-daily-v1';
-  function blankKid(name, avatar, perDay) {
-    return { id: Math.random().toString(36).slice(2, 9), name, avatar, perDay, cards: {}, history: {}, stars: 0 };
+  function blankKid(id, name, avatar, perDay) {
+    return { id, name, avatar, perDay, cards: {}, history: {}, stars: 0, updated: 0 };
   }
+  function defaults() { return { kids: [blankKid('kid1', '哥哥', '🐲', 6), blankKid('kid2', '弟弟', '🐯', 4)] }; }
   function load() {
-    try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.kids) return s; } catch (e) {}
-    return { kids: [blankKid('哥哥', '🐲', 6), blankKid('弟弟', '🐯', 4)] };
+    try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.kids) && s.kids.length) return s; } catch (e) {}
+    return defaults();
   }
   let S = load();
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('无法保存进度（浏览器不允许存储）'); } }
+  let view = 'home';
+
+  // --- cloud sync (artifact db): kids/<id>, one document per kid ---
+  let db = null;
+  const dirty = new Set(), writing = new Set();
+  let flushTimer = null;
+  function save(kid) {
+    try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+    const list = kid ? [kid] : S.kids;
+    list.forEach(k => { k.updated = Date.now(); dirty.add(k.id); });
+    if (db) { clearTimeout(flushTimer); flushTimer = setTimeout(flush, 1200); }
+  }
+  async function flush() {
+    for (const id of [...dirty]) {
+      if (writing.has(id)) continue;
+      const k = S.kids.find(x => x.id === id);
+      dirty.delete(id);
+      if (!k) continue;
+      writing.add(id);
+      try { await db.doc('kids/' + id).set(JSON.parse(JSON.stringify(k))); }
+      catch (e) { dirty.add(id); if (!flush.warned) { flush.warned = 1; toast('进度暂时没能同步，已保存在这台设备上'); } }
+      writing.delete(id);
+    }
+    if (dirty.size) { clearTimeout(flushTimer); flushTimer = setTimeout(flush, 3000); }
+  }
+  function applyRemote(docs) {
+    let changed = false;
+    docs.forEach(d => {
+      if (!d || typeof d.id !== 'string' || !d.cards) return;
+      const i = S.kids.findIndex(k => k.id === d.id);
+      if (i < 0) { S.kids.push(d); changed = true; return; }
+      const mine = S.kids[i];
+      if ((d.updated || 0) > (mine.updated || 0) && !dirty.has(d.id) && !(session && current === mine && view === 'session')) {
+        S.kids[i] = d; if (current === mine) current = d; changed = true;
+      }
+    });
+    if (changed) {
+      try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+      if (view === 'home' || view === 'kid') go(view);
+    }
+  }
+  (async function connect() {
+    if (!window.claude || typeof window.claude.use !== 'function') return;
+    let d = null; try { d = await window.claude.use('db'); } catch (e) {}
+    if (!d) return;
+    db = d;
+    let first = true;
+    db.collection('kids').onSnapshot(snap => {
+      const docs = snap.docs.map(x => { try { return JSON.parse(JSON.stringify(x.data())); } catch (e) { return null; } });
+      if (first && !snap.metadata?.fromCache) {
+        first = false;
+        // ids the store doesn't have yet (first run / progress made before syncing): upload them
+        const have = new Set(docs.map(x => x && x.id));
+        S.kids.forEach(k => { if (!have.has(k.id) && (Object.keys(k.cards).length || k.updated)) dirty.add(k.id); });
+        if (!docs.length) S.kids.forEach(k => dirty.add(k.id));
+        if (dirty.size) flush();
+      }
+      applyRemote(docs);
+    }, () => {});
+  })();
 
   // ---------- dates ----------
   function dayStr(d) { d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
@@ -88,6 +150,18 @@
     document.body.appendChild(box); setTimeout(() => box.remove(), 4200);
   }
 
+  // in-page confirmation (window.confirm is blocked in some embeds)
+  function ask(msg, okLabel) {
+    return new Promise(res => {
+      const m = document.createElement('div'); m.className = 'modal';
+      m.innerHTML = `<div class="card"><p style="margin:0;font-weight:800;font-size:18px"></p>
+        <div class="row"><button class="btn ghost" data-a="0">取消</button><button class="btn" data-a="1"></button></div></div>`;
+      m.querySelector('p').textContent = msg; m.querySelector('[data-a="1"]').textContent = okLabel || '确定';
+      m.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { m.remove(); res(b.dataset.a === '1'); });
+      document.body.appendChild(m);
+    });
+  }
+
   // ---------- speech ----------
   let zhVoice = null;
   function pickVoice() {
@@ -108,6 +182,16 @@
   }
 
   // ---------- stroke order (Hanzi Writer, optional) ----------
+  // stroke data ships beside the page (strokes.json); falls back to Hanzi Writer's CDN data
+  let strokesP = null;
+  function strokeData(ch, onLoad, onError) {
+    strokesP = strokesP || fetch('strokes.json').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    strokesP.then(all => {
+      if (all[ch]) return onLoad(all[ch]);
+      fetch('https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0.1/' + encodeURIComponent(ch) + '.json')
+        .then(r => r.json()).then(onLoad).catch(onError);
+    });
+  }
   function mountWriter(el, ch, mode) {
     if (!window.HanziWriter || !el) return null;
     const box = el.closest('.tzg');
@@ -119,7 +203,7 @@
       w = HanziWriter.create(el, ch, {
         width: size, height: size, padding: 14, showOutline: true, strokeColor: ink, radicalColor: red,
         outlineColor: 'rgba(160,140,120,.28)', drawingColor: red, highlightColor: '#e8a317',
-        strokeAnimationSpeed: 1.1, delayBetweenStrokes: 220, showCharacter: mode !== 'quiz',
+        charDataLoader: strokeData, strokeAnimationSpeed: 1.1, delayBetweenStrokes: 220, showCharacter: mode !== 'quiz',
         onLoadCharDataSuccess: () => box.classList.add('has-writer'),
         onLoadCharDataError: () => { box.classList.remove('has-writer'); el.innerHTML = ''; }
       });
@@ -131,11 +215,12 @@
   let current = null;   // kid
   let session = null;
   let timerId = null;
-  function go(view, arg) {
-    if (timerId && view !== 'session') { clearInterval(timerId); timerId = null; }
+  function go(v, arg) {
+    if (timerId && v !== 'session') { clearInterval(timerId); timerId = null; }
     if ('speechSynthesis' in window) speechSynthesis.cancel();
     window.scrollTo(0, 0);
-    ({ home, kid: dash, session: runSession, summary, library, settings })[view](arg);
+    view = v;
+    ({ home, kid: dash, session: runSession, summary, library, settings })[v](arg);
   }
 
   // ---------- HOME ----------
@@ -148,7 +233,7 @@
       <div class="kids">${S.kids.map((k, i) => {
         const p = plan(k), done = (k.history[today()] || {}).done;
         return `<button class="card kid" data-i="${i}">
-          <span class="av">${k.avatar}</span><span class="name">${esc(k.name)}</span>
+          <span class="av">${esc(k.avatar)}</span><span class="name">${esc(k.name)}</span>
           <span class="chips">
             <span class="chip green">认识 ${learned(k).length} 字</span>
             <span class="chip gold">🔥 ${streak(k)} 天</span>
@@ -169,7 +254,7 @@
     $app.innerHTML = `
       <div class="top"><button class="icon-btn" id="back" aria-label="返回">←</button>
         <span class="chip gold">⭐ ${k.stars}</span></div>
-      <div class="hello"><span class="av">${k.avatar}</span><div><h2>${esc(k.name)}，你好！</h2>
+      <div class="hello"><span class="av">${esc(k.avatar)}</span><div><h2>${esc(k.name)}，你好！</h2>
         <div class="muted small">${h.done ? '今天的任务完成啦，真棒！' : '准备好今天的 10 分钟了吗？'}</div></div></div>
       <div class="stats">
         <div class="stat"><b>${learned(k).length}</b><span>认识的字</span></div>
@@ -317,7 +402,7 @@
     const k = current;
     stage.querySelector('#got').onclick = () => {
       k.cards[c] = { box: 0, due: today(), ok: 0, bad: 0, first: today() };
-      session.learnedNow.push(c); session.stars += 2; k.stars += 2; bumpToday({ newCount: 1 }); save(); next();
+      session.learnedNow.push(c); session.stars += 2; k.stars += 2; bumpToday({ newCount: 1 }); save(k); next();
     };
     stage.querySelector('#know').onclick = () => {
       k.cards[c] = { box: 5, due: addDays(INTERVAL[5]), ok: 1, bad: 0, first: today(), known: true };
@@ -328,7 +413,7 @@
         session.q.splice(session.i + 1, 0, { t: 'learn', c: more.c });
         session.q.splice(Math.min(session.q.length, session.i + 4), 0, { t: 'check', c: more.c });
       }
-      session.stars += 1; k.stars += 1; save(); toast('厉害！这个字放进字库了 👏'); next();
+      session.stars += 1; k.stars += 1; save(k); toast('厉害！这个字放进字库了 👏'); next();
     };
   }
 
@@ -437,7 +522,7 @@
       }
     }
     if (!item.practice) bumpToday({ reviewed: 1 });
-    save();
+    save(k);
   }
 
   function bumpToday(d) {
@@ -447,7 +532,7 @@
   function markDone() {
     const h = current.history[today()] = current.history[today()] || {};
     if (!h.done) { h.done = true; current.stars += 5; session.stars += 5; }
-    save();
+    save(current);
   }
 
   function finish(quit) {
@@ -457,7 +542,7 @@
     h.sec = (h.sec || 0) + s.sec;
     const completedQueue = s.i >= s.q.length;
     if (s.mode === 'daily' && (completedQueue || s.sec >= SESSION_SEC)) markDone();
-    save();
+    save(k);
     if (quit && s.reviewed === 0 && !s.learnedNow.length) { go('kid'); return; }
     go('summary', { quit, completedQueue });
   }
@@ -542,22 +627,31 @@
       </div>
       <div class="card" style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
         <h3>备份 / 换设备</h3>
-        <p class="muted small" style="margin:0">进度保存在这台设备的浏览器里。换手机/平板前，先下载备份，再到新设备上导入。</p>
+        <p class="muted small" style="margin:0">在 claude.ai 登录打开时，进度会自动同步到各个设备；其他情况下进度只保存在这台设备的浏览器里，换设备前可以先下载备份，再到新设备上导入。</p>
         <div class="row"><button class="btn ghost" id="exp">⬇ 下载备份</button><button class="btn ghost" id="imp">⬆ 导入备份</button></div>
         <input type="file" id="file" accept="application/json,.json" hidden>
       </div>`;
     document.getElementById('back').onclick = () => go('home');
-    $app.querySelectorAll('[data-name]').forEach(el => el.oninput = () => { S.kids[+el.dataset.name].name = el.value.trim() || '小朋友'; save(); });
-    $app.querySelectorAll('[data-av]').forEach(el => el.onchange = () => { S.kids[+el.dataset.av].avatar = el.value; save(); });
-    $app.querySelectorAll('[data-per]').forEach(el => el.onchange = () => { S.kids[+el.dataset.per].perDay = +el.value; save(); });
+    $app.querySelectorAll('[data-name]').forEach(el => el.oninput = () => { S.kids[+el.dataset.name].name = el.value.trim() || '小朋友'; save(S.kids[+el.dataset.name]); });
+    $app.querySelectorAll('[data-av]').forEach(el => el.onchange = () => { S.kids[+el.dataset.av].avatar = el.value; save(S.kids[+el.dataset.av]); });
+    $app.querySelectorAll('[data-per]').forEach(el => el.onchange = () => { S.kids[+el.dataset.per].perDay = +el.value; save(S.kids[+el.dataset.per]); });
     $app.querySelectorAll('[data-reset]').forEach(el => el.onclick = () => {
       const k = S.kids[+el.dataset.reset];
-      if (confirm(`确定清空「${k.name}」的全部进度吗？此操作无法撤销。`)) { Object.assign(k, { cards: {}, history: {}, stars: 0 }); save(); settings(); }
+      ask(`确定清空「${k.name}」的全部进度吗？此操作无法撤销。`, '清空').then(ok => {
+        if (ok) { Object.assign(k, { cards: {}, history: {}, stars: 0 }); save(k); settings(); }
+      });
     });
-    document.getElementById('exp').onclick = () => {
-      const blob = new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' });
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `识字备份-${today()}.json`;
-      document.body.appendChild(a); a.click(); a.remove();
+    document.getElementById('exp').onclick = async () => {
+      const json = JSON.stringify(S, null, 1), name = `hanzi-backup-${today()}.json`;
+      let dl = null;
+      try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) {}
+      if (dl) {
+        try { await dl.save({ filename: name, data: json }); toast('备份已保存 ✓'); }
+        catch (e) { if (e && e.code !== 'declined') toast('这里没法下载文件，请换浏览器打开'); }
+        return;
+      }
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+      a.download = name; document.body.appendChild(a); a.click(); a.remove();
     };
     const file = document.getElementById('file');
     document.getElementById('imp').onclick = () => file.click();
@@ -565,10 +659,12 @@
       const f = file.files[0]; if (!f) return;
       f.text().then(t => {
         const d = JSON.parse(t);
-        if (!d || !Array.isArray(d.kids)) throw new Error('bad');
-        if (!confirm('导入后会覆盖这台设备上的进度，确定吗？')) return;
-        S = d; save(); toast('导入成功 ✓'); settings();
-      }).catch(() => toast('文件格式不对'));
+        if (!d || !Array.isArray(d.kids) || !d.kids.every(k => k && k.id && k.cards)) throw new Error('bad');
+        return ask('导入后会覆盖现在的进度，确定吗？', '导入').then(ok => {
+          if (!ok) return;
+          S = d; save(); toast('导入成功 ✓'); settings();
+        });
+      }).catch(() => toast('文件格式不对')).finally(() => { file.value = ''; });
     };
   }
 

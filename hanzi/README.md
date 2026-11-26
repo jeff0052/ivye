@@ -10,3 +10,5 @@
 - **字库**：`data.js` 里 336 个常用简体字，按主题分单元；可以直接增删，格式见文件开头注释。
 
 发音用浏览器自带的中文语音（iPad / Mac / 大多数安卓和 Windows 都有）；笔顺用 Hanzi Writer（需要联网）。
+
+笔顺数据 `strokes.json` 来自 [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data)（基于 Make Me a Hanzi，Arphic Public License），只截取了字库里用到的字。
