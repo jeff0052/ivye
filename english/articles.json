@@ -1,0 +1,181 @@
+[
+{"id":"b01","title":"Why We Procrastinate","topic":"Psychology",
+"paragraphs":[
+{"en":"Almost everyone has delayed an important task while doing something far less useful, such as tidying a desk or scrolling through a phone. For a long time, procrastination was seen as a simple problem of laziness or poor time management. Recent research, however, suggests that it is mainly about emotions rather than time.","zh":"几乎每个人都有过这样的经历：拖着一件重要的事不做，却去做一些用处小得多的事，比如整理桌子或刷手机。很长时间里，拖延被看作只是懒惰或时间管理差的问题。然而最近的研究表明，它主要关乎情绪，而不是时间。"},
+{"en":"When a task makes us feel anxious, bored or uncertain, our brain looks for a quick way to escape that unpleasant feeling. Putting the task off brings immediate relief, and that relief is a kind of reward. The problem is that the reward reinforces the habit, so the next time we face a similar task, we are even more likely to avoid it.","zh":"当一项任务让我们感到焦虑、无聊或没把握时，大脑会寻找一条快速逃离这种不快感受的出路。把任务推迟能带来即时的解脱，而这种解脱本身就是一种奖励。问题在于，这种奖励会强化这个习惯，于是下次遇到类似的任务时，我们更可能逃避它。"},
+{"en":"Psychologists have found that harsh self-criticism makes the cycle worse. Students who forgave themselves for procrastinating before one exam were less likely to procrastinate before the next one. Being kind to yourself, it seems, reduces the negative emotions that trigger avoidance in the first place.","zh":"心理学家发现，严厉的自我批评会让这个循环更糟。那些原谅了自己在一次考试前拖延的学生，在下一次考试前拖延的可能性更小。看来，善待自己能减少那些一开始就引发逃避的负面情绪。"},
+{"en":"A practical strategy is to make the first step absurdly small. Instead of planning to write an entire report, decide to open the document and write one sentence. Once we start, the task usually feels less threatening, and momentum carries us forward.","zh":"一个实用的策略是把第一步定得小到近乎可笑。与其计划写完整份报告，不如决定只打开文档写一句话。一旦开始，任务通常就显得没那么可怕，惯性会推着我们继续往前。"}],
+"vocab":[
+{"w":"procrastinate","f":["procrastination","procrastinating"],"ipa":"/prəʊˈkræstɪneɪt/","pos":"v.","zh":"拖延","ex":"Stop procrastinating and start your essay."},
+{"w":"relief","ipa":"/rɪˈliːf/","pos":"n.","zh":"宽慰；解脱","ex":"It was a relief to finish the exam."},
+{"w":"reinforce","f":["reinforces"],"ipa":"/ˌriːɪnˈfɔːs/","pos":"v.","zh":"加强；强化","ex":"Praise can reinforce good behaviour."},
+{"w":"trigger","ipa":"/ˈtrɪɡə(r)/","pos":"v.","zh":"引发；触发","ex":"Loud noises can trigger a headache."},
+{"w":"absurdly","ipa":"/əbˈsɜːdli/","pos":"adv.","zh":"荒谬地；极其","ex":"The tickets were absurdly expensive."},
+{"w":"momentum","ipa":"/məˈmentəm/","pos":"n.","zh":"势头；动力","ex":"The campaign is gaining momentum."}],
+"questions":[
+{"q":"According to recent research, procrastination is mainly a problem of ____.","o":["laziness","managing emotions","poor planning","lack of intelligence"],"a":1,"why":"第一段末句：it is mainly about emotions rather than time."},
+{"q":"Why does putting off a task become a habit?","o":["Because the task gets easier later","Because teachers allow it","Because the short-term relief acts as a reward","Because people forget the deadline"],"a":2,"why":"第二段：推迟带来的解脱是一种奖励，奖励强化了习惯。"},
+{"q":"What does the writer suggest doing to overcome procrastination?","o":["Criticise yourself strictly","Make the first step very small","Work only at night","Plan the whole task in detail first"],"a":1,"why":"最后一段：make the first step absurdly small。"}]},
+
+{"id":"b02","title":"Sleep: The Brain's Night Shift","topic":"Health",
+"paragraphs":[
+{"en":"Many students sacrifice sleep before an exam, believing that extra hours of study will improve their results. Neuroscience tells a different story. Sleep is not simply a period of rest; it is when the brain does some of its most important work.","zh":"许多学生在考试前牺牲睡眠，认为多学几个小时能提高成绩。神经科学讲述的却是另一回事。睡眠不只是休息的时段，大脑一些最重要的工作正是在这时完成的。"},
+{"en":"During deep sleep, the brain replays the experiences of the day and transfers important information from short-term to long-term memory. This process, known as consolidation, explains why people who sleep after learning remember significantly more than those who stay awake.","zh":"在深度睡眠中，大脑会重放白天的经历，并把重要信息从短期记忆转移到长期记忆。这个过程叫作“巩固”，它解释了为什么学习后睡觉的人比熬夜的人记住的多得多。"},
+{"en":"Sleep also helps the brain clean itself. While we sleep, fluid flows more freely between brain cells and washes away waste products that build up during the day. Some of these substances are linked to diseases of memory in later life, which makes chronic lack of sleep a long-term concern as well as a short-term one.","zh":"睡眠还帮助大脑自我清洁。我们睡觉时，液体在脑细胞之间流动得更顺畅，冲走白天积累的代谢废物。其中一些物质与晚年的记忆类疾病有关，这使得长期睡眠不足不仅是短期问题，也是长期隐患。"},
+{"en":"The practical lesson is clear. If you have to choose between two more hours of revision and a full night's sleep, the sleep is often the better investment. A rested brain learns faster, concentrates longer and recalls information more accurately.","zh":"实际的启示很清楚：如果你必须在多复习两个小时和睡个整觉之间选择，睡觉往往是更好的投资。休息好的大脑学得更快、专注更久、回忆信息也更准确。"}],
+"vocab":[
+{"w":"sacrifice","ipa":"/ˈsækrɪfaɪs/","pos":"v.","zh":"牺牲","ex":"She sacrificed her weekends to finish the project."},
+{"w":"consolidation","ipa":"/kənˌsɒlɪˈdeɪʃn/","pos":"n.","zh":"巩固；加强","ex":"Sleep plays a key role in memory consolidation."},
+{"w":"significantly","ipa":"/sɪɡˈnɪfɪkəntli/","pos":"adv.","zh":"显著地","ex":"Prices have risen significantly this year."},
+{"w":"substance","f":["substances"],"ipa":"/ˈsʌbstəns/","pos":"n.","zh":"物质","ex":"Water is a common substance."},
+{"w":"chronic","ipa":"/ˈkrɒnɪk/","pos":"adj.","zh":"长期的；慢性的","ex":"He suffers from chronic back pain."},
+{"w":"concentrate","f":["concentrates"],"ipa":"/ˈkɒnsntreɪt/","pos":"v.","zh":"集中注意力","ex":"I can't concentrate with the TV on."}],
+"questions":[
+{"q":"What is \"consolidation\" in this passage?","o":["Cleaning waste from the brain","Moving information into long-term memory","Falling into deep sleep","Studying late at night"],"a":1,"why":"第二段：transfers important information from short-term to long-term memory, known as consolidation。"},
+{"q":"Why is chronic lack of sleep a long-term concern?","o":["Waste linked to memory diseases may build up","Students get lower marks","It makes people taller","It reduces fluid in the body"],"a":0,"why":"第三段：some of these substances are linked to diseases of memory in later life。"},
+{"q":"What is the writer's main advice?","o":["Study all night before exams","Sleep is often a better choice than extra revision","Sleep only after exams","Take short naps instead of sleeping"],"a":1,"why":"最后一段：the sleep is often the better investment。"}]},
+
+{"id":"b03","title":"Cities Built for Bicycles","topic":"Society",
+"paragraphs":[
+{"en":"In the 1970s, the streets of Amsterdam and Copenhagen were crowded with cars, and traffic accidents were common. Today these cities are famous for their cycling culture. This transformation did not happen by accident; it was the result of deliberate decisions by citizens and planners.","zh":"20 世纪 70 年代，阿姆斯特丹和哥本哈根的街道挤满了汽车，交通事故频发。如今这两座城市以自行车文化闻名。这种转变并非偶然，而是市民和规划者刻意决策的结果。"},
+{"en":"After a series of accidents involving children, residents protested and demanded safer streets. Governments responded by building separate cycle lanes, reducing speed limits and making parking in the city centre more expensive. Gradually, cycling became the fastest and most convenient way to get around.","zh":"在一系列涉及儿童的事故之后，居民们抗议并要求更安全的街道。政府的回应是修建独立的自行车道、降低限速，并提高市中心的停车费用。渐渐地，骑车成了出行最快、最方便的方式。"},
+{"en":"The benefits extend far beyond transport. Cyclists get regular exercise without setting aside time for the gym, air pollution falls, and streets become quieter and more pleasant. Local shops often benefit too, because people on bicycles stop more frequently than drivers do.","zh":"好处远不止于交通。骑车的人无需专门抽时间去健身房就能经常锻炼，空气污染减少，街道变得更安静、更宜人。本地商店也常常受益，因为骑车的人比开车的人停下来的次数更多。"},
+{"en":"Critics argue that such policies only work in flat European cities. Yet hilly cities with electric bicycles and well-designed infrastructure have shown that the model can be adapted. The key lesson is that people choose the option that is easiest, and cities can decide what is easiest.","zh":"批评者认为，这类政策只适用于地势平坦的欧洲城市。然而，一些多山的城市借助电动自行车和精心设计的基础设施，证明了这一模式可以因地制宜。关键的启示是：人们会选择最方便的方式，而城市可以决定什么最方便。"}],
+"vocab":[
+{"w":"transformation","ipa":"/ˌtrænsfəˈmeɪʃn/","pos":"n.","zh":"转变；改观","ex":"The town has undergone a complete transformation."},
+{"w":"deliberate","ipa":"/dɪˈlɪbərət/","pos":"adj.","zh":"故意的；深思熟虑的","ex":"It was a deliberate attempt to mislead us."},
+{"w":"resident","f":["residents"],"ipa":"/ˈrezɪdənt/","pos":"n.","zh":"居民","ex":"Local residents complained about the noise."},
+{"w":"extend","f":["extends"],"ipa":"/ɪkˈstend/","pos":"v.","zh":"延伸；扩展","ex":"The garden extends down to the river."},
+{"w":"infrastructure","ipa":"/ˈɪnfrəstrʌktʃə(r)/","pos":"n.","zh":"基础设施","ex":"The country needs better infrastructure."},
+{"w":"adapt","f":["adapted"],"ipa":"/əˈdæpt/","pos":"v.","zh":"使适应；改编","ex":"The book was adapted for television."}],
+"questions":[
+{"q":"What started the change in Amsterdam and Copenhagen?","o":["Rising oil prices","Protests after accidents involving children","A new law from Europe","The invention of electric bikes"],"a":1,"why":"第二段：After a series of accidents involving children, residents protested。"},
+{"q":"Why do local shops benefit from cycling?","o":["Cyclists have more money","Cyclists stop more often","Shops sell bicycles","Parking is free for cyclists"],"a":1,"why":"第三段：people on bicycles stop more frequently than drivers do。"},
+{"q":"What is \"the key lesson\" of the passage?","o":["Only flat cities can encourage cycling","People choose the easiest option, and cities shape what is easiest","Cars should be banned completely","Electric bikes are dangerous"],"a":1,"why":"最后一句。"}]},
+
+{"id":"b04","title":"The Hidden Cost of Food Waste","topic":"Environment",
+"paragraphs":[
+{"en":"Roughly one third of all the food produced in the world is never eaten. It spoils in warehouses, is rejected by supermarkets for looking imperfect, or is thrown away at home. While this may seem like a purely economic loss, its environmental impact is enormous.","zh":"全世界生产的食物中，大约有三分之一从未被吃掉。它们在仓库里变质，因为外观不完美被超市拒收，或者在家里被扔掉。这看起来似乎只是经济损失，但其对环境的影响是巨大的。"},
+{"en":"Every wasted apple carries the water, land, fuel and labour that were used to grow and transport it. When food rots in landfill, it also releases methane, a greenhouse gas far more powerful than carbon dioxide in the short term. If food waste were a country, it would be one of the largest emitters in the world.","zh":"每一个被浪费的苹果，都承载着种植和运输它所耗费的水、土地、燃料和劳动。食物在垃圾填埋场腐烂时，还会释放甲烷——一种短期内比二氧化碳威力大得多的温室气体。如果食物浪费是一个国家，它将是世界上最大的排放国之一。"},
+{"en":"In wealthy countries, most waste happens in homes and shops. Confusing date labels are one major cause: many people throw away food that is still perfectly safe because they misunderstand the difference between \"best before\" and \"use by\".","zh":"在富裕国家，大部分浪费发生在家庭和商店。令人困惑的日期标签是一个主要原因：许多人因为误解了“最佳食用日期”和“必须在此日期前食用”的区别，扔掉了仍然完全安全的食物。"},
+{"en":"Small habits can make a real difference: planning meals, storing food properly and treating leftovers as ingredients rather than rubbish. Reducing waste is one of the rare environmental actions that also saves people money.","zh":"一些小习惯就能带来实际的改变：规划饭菜、妥善储存食物、把剩菜当作食材而不是垃圾。减少浪费是少有的既环保又能省钱的行动之一。"}],
+"vocab":[
+{"w":"spoil","f":["spoils"],"ipa":"/spɔɪl/","pos":"v.","zh":"（食物）变质；破坏","ex":"Milk spoils quickly in hot weather."},
+{"w":"enormous","ipa":"/ɪˈnɔːməs/","pos":"adj.","zh":"巨大的","ex":"They spent an enormous amount of money."},
+{"w":"rot","f":["rots"],"ipa":"/rɒt/","pos":"v.","zh":"腐烂","ex":"The fruit was left to rot on the trees."},
+{"w":"landfill","ipa":"/ˈlændfɪl/","pos":"n.","zh":"垃圾填埋场","ex":"Most plastic ends up in landfill."},
+{"w":"emitter","f":["emitters"],"ipa":"/iˈmɪtə(r)/","pos":"n.","zh":"排放者；排放源","ex":"China and the US are the largest carbon emitters."},
+{"w":"leftover","f":["leftovers"],"ipa":"/ˈleftəʊvə(r)/","pos":"n.","zh":"剩菜；剩余物","ex":"We had the leftovers for lunch."}],
+"questions":[
+{"q":"Why does wasted food harm the environment, according to the passage?","o":["It attracts animals","It wastes resources and releases methane","It makes supermarkets dirty","It raises food prices only"],"a":1,"why":"第二段：浪费的食物带着水、土地、燃料，并在填埋场释放甲烷。"},
+{"q":"What is one major cause of household food waste in wealthy countries?","o":["Misunderstanding date labels","Lack of fridges","Food being too cheap to sell","Strict government rules"],"a":0,"why":"第三段：Confusing date labels are one major cause。"},
+{"q":"What makes reducing food waste unusual among environmental actions?","o":["It is very difficult","It also saves money","Only governments can do it","It requires new technology"],"a":1,"why":"最后一句：also saves people money。"}]},
+
+{"id":"b05","title":"Learning a Language as an Adult","topic":"Education",
+"paragraphs":[
+{"en":"It is widely believed that children learn languages effortlessly while adults struggle. There is some truth in this: children who grow up with a language usually achieve a more native-like accent. But in many other respects, adults have important advantages.","zh":"人们普遍认为，孩子学语言毫不费力，而成年人却很吃力。这有一定道理：在某种语言环境中长大的孩子，通常能获得更接近母语者的口音。但在许多其他方面，成年人有着重要的优势。"},
+{"en":"Adults can understand grammar rules explicitly, use strategies consciously and connect new words to a large store of existing knowledge. In controlled studies, adult beginners often progress faster than children during the first months of learning.","zh":"成年人能够明确理解语法规则，有意识地运用学习策略，并把新单词和大量已有知识联系起来。在对照研究中，成年初学者在学习的头几个月往往比孩子进步得更快。"},
+{"en":"What adults usually lack is not ability but exposure. A child hears thousands of hours of a language in a natural context, while an adult learner may only meet it in a textbook for a few hours a week. The difference in input, not in age, explains much of the gap.","zh":"成年人通常缺少的不是能力，而是接触量。孩子在自然的语境中听上千小时的语言，而成年学习者可能每周只在课本里接触它几个小时。造成差距的主要是输入量的不同，而不是年龄。"},
+{"en":"For this reason, regular reading and listening are among the most effective things an adult can do. Ten minutes every day, repeated over months, adds up to far more meaningful input than an occasional long session, and it builds a habit that lasts.","zh":"因此，坚持阅读和听力是成年人能做的最有效的事情之一。每天十分钟，坚持几个月，累积起来的有效输入远远多于偶尔一次的长时间学习，而且会养成持久的习惯。"}],
+"vocab":[
+{"w":"effortlessly","ipa":"/ˈefətləsli/","pos":"adv.","zh":"毫不费力地","ex":"She speaks French effortlessly."},
+{"w":"respect","f":["respects"],"ipa":"/rɪˈspekt/","pos":"n.","zh":"方面；细节","ex":"In some respects, the plan is a good one."},
+{"w":"explicitly","ipa":"/ɪkˈsplɪsɪtli/","pos":"adv.","zh":"明确地","ex":"The rules explicitly forbid phones in class."},
+{"w":"consciously","ipa":"/ˈkɒnʃəsli/","pos":"adv.","zh":"有意识地","ex":"I consciously tried to speak more slowly."},
+{"w":"exposure","ipa":"/ɪkˈspəʊʒə(r)/","pos":"n.","zh":"接触；暴露","ex":"Early exposure to music helps children."},
+{"w":"occasional","ipa":"/əˈkeɪʒənl/","pos":"adj.","zh":"偶尔的","ex":"He enjoys an occasional glass of wine."}],
+"questions":[
+{"q":"In which area do children usually have an advantage?","o":["Grammar rules","Vocabulary size","Native-like accent","Learning strategies"],"a":2,"why":"第一段：children usually achieve a more native-like accent。"},
+{"q":"According to the passage, what mainly explains the gap between children and adults?","o":["Age","Intelligence","Amount of language input","Quality of textbooks"],"a":2,"why":"第三段：The difference in input, not in age, explains much of the gap。"},
+{"q":"What does the writer recommend for adult learners?","o":["Long sessions once a month","Short, regular reading and listening","Studying grammar only","Moving abroad immediately"],"a":1,"why":"最后一段：Ten minutes every day…"}]},
+
+{"id":"b06","title":"The Comparison Trap","topic":"Technology",
+"paragraphs":[
+{"en":"Social media allows us to stay in touch with friends and discover new ideas, but it also exposes us to a constant stream of other people's achievements. Holidays, promotions, perfect meals and smiling faces appear on our screens every few seconds.","zh":"社交媒体让我们能与朋友保持联系、发现新想法，但它也让我们不断接触到别人的成就。度假、升职、完美的饭菜和笑脸，每隔几秒就出现在我们的屏幕上。"},
+{"en":"The trouble is that what we see is carefully selected. People rarely post about failed exams, arguments or boring afternoons. When we compare our ordinary, unedited lives with these highlights, we tend to conclude that everyone else is happier and more successful than we are.","zh":"问题在于，我们看到的东西都是精心挑选过的。人们很少发布考试失利、争吵或无聊的下午。当我们拿自己平凡、未经修饰的生活去和这些精彩片段比较时，往往会得出结论：别人都比自己更快乐、更成功。"},
+{"en":"Several studies have found a correlation between heavy social media use and feelings of envy and loneliness, especially among young people. Interestingly, the effect seems strongest for passive use, such as scrolling silently, rather than active use like messaging friends.","zh":"多项研究发现，大量使用社交媒体与嫉妒和孤独感之间存在相关性，在年轻人中尤为明显。有趣的是，这种影响在被动使用（例如默默刷屏）时最强，而在主动使用（比如给朋友发消息）时较弱。"},
+{"en":"This suggests a simple adjustment. Instead of quitting entirely, we can use these platforms more intentionally: talk to people rather than just watch them, and remember that every feed is an edited version of reality.","zh":"这提示了一个简单的调整：不必完全戒掉，我们可以更有目的地使用这些平台——和人交流，而不只是旁观，并记住每条信息流都是经过剪辑的现实。"}],
+"vocab":[
+{"w":"constant","ipa":"/ˈkɒnstənt/","pos":"adj.","zh":"持续不断的","ex":"The baby needs constant attention."},
+{"w":"promotion","f":["promotions"],"ipa":"/prəˈməʊʃn/","pos":"n.","zh":"晋升；促销","ex":"She got a promotion last month."},
+{"w":"correlation","ipa":"/ˌkɒrəˈleɪʃn/","pos":"n.","zh":"相关性","ex":"There is a correlation between exercise and mood."},
+{"w":"envy","ipa":"/ˈenvi/","pos":"n.","zh":"嫉妒；羡慕","ex":"She looked at his new car with envy."},
+{"w":"passive","ipa":"/ˈpæsɪv/","pos":"adj.","zh":"被动的；消极的","ex":"Watching TV is a passive activity."},
+{"w":"intentionally","ipa":"/ɪnˈtenʃənəli/","pos":"adv.","zh":"有意地；故意地","ex":"He intentionally left the door open."}],
+"questions":[
+{"q":"Why can social media make us feel worse about our lives?","o":["It shows only bad news","We compare our ordinary lives with others' highlights","It is too expensive","It takes too much time to post"],"a":1,"why":"第二段。"},
+{"q":"Which kind of use is most linked to negative feelings?","o":["Messaging friends","Posting photos","Scrolling silently","Reading news"],"a":2,"why":"第三段：strongest for passive use, such as scrolling silently。"},
+{"q":"What does the writer suggest?","o":["Delete all social media","Use social media more intentionally","Post more often","Only follow celebrities"],"a":1,"why":"最后一段：use these platforms more intentionally。"}]},
+
+{"id":"b07","title":"Remote Work: Freedom or Isolation?","topic":"Work",
+"paragraphs":[
+{"en":"Before 2020, working from home was a privilege enjoyed by a small minority. Within months, it became normal for millions of office workers. Now that the emergency is over, companies and employees are still debating which arrangement works best.","zh":"2020 年以前，在家办公是少数人才享有的待遇。短短几个月内，它对数百万上班族来说成了常态。如今紧急状况已经过去，公司和员工仍在争论哪种安排效果最好。"},
+{"en":"Supporters of remote work point to the time saved on commuting, greater flexibility and fewer interruptions. Many employees report that they can concentrate better at home and balance their work with family responsibilities more easily.","zh":"远程办公的支持者指出，它节省了通勤时间，更加灵活，干扰也更少。许多员工表示，他们在家能更专注，也更容易兼顾工作和家庭责任。"},
+{"en":"Critics, however, worry about isolation and the loss of informal learning. Young employees in particular benefit from overhearing conversations, asking quick questions and observing experienced colleagues. These small moments are difficult to reproduce on a video call.","zh":"然而，批评者担心孤立感和非正式学习的缺失。年轻员工尤其受益于无意中听到的谈话、随口提出的问题以及对资深同事的观察。这些细小的时刻很难在视频通话中重现。"},
+{"en":"As a result, many organisations have settled on a hybrid model, with some days in the office and some at home. The challenge is to use office days for collaboration and mentoring, rather than simply answering emails in a different place.","zh":"因此，许多机构选择了混合模式：部分时间在办公室，部分时间在家。挑战在于要把在办公室的日子用于协作和指导，而不只是换个地方回邮件。"}],
+"vocab":[
+{"w":"privilege","ipa":"/ˈprɪvəlɪdʒ/","pos":"n.","zh":"特权；荣幸","ex":"Education should be a right, not a privilege."},
+{"w":"commute","f":["commuting"],"ipa":"/kəˈmjuːt/","pos":"v.","zh":"通勤","ex":"She commutes to work by train."},
+{"w":"interruption","f":["interruptions"],"ipa":"/ˌɪntəˈrʌpʃn/","pos":"n.","zh":"打扰；中断","ex":"I worked for two hours without interruption."},
+{"w":"isolation","ipa":"/ˌaɪsəˈleɪʃn/","pos":"n.","zh":"孤立；隔离","ex":"Old people often suffer from isolation."},
+{"w":"hybrid","ipa":"/ˈhaɪbrɪd/","pos":"adj.","zh":"混合的","ex":"They drive a hybrid car."},
+{"w":"mentor","f":["mentoring"],"ipa":"/ˈmentɔː(r)/","pos":"v./n.","zh":"指导；导师","ex":"Senior staff mentor new employees."}],
+"questions":[
+{"q":"Which is NOT mentioned as an advantage of remote work?","o":["Saving time on commuting","Fewer interruptions","Higher salaries","Better balance with family"],"a":2,"why":"第二段没有提到工资。"},
+{"q":"Why might young employees lose out when working remotely?","o":["They miss informal learning from colleagues","They have to work longer hours","They cannot use computers","They are paid less"],"a":0,"why":"第三段：the loss of informal learning。"},
+{"q":"What is the challenge of the hybrid model?","o":["Finding enough office space","Using office days for collaboration and mentoring","Buying new equipment","Reducing the number of meetings"],"a":1,"why":"最后一句。"}]},
+
+{"id":"b08","title":"Why Walking Helps You Think","topic":"Health",
+"paragraphs":[
+{"en":"Many famous writers and scientists, from Charles Darwin to Steve Jobs, were known for taking long walks to solve problems. Darwin even built a special path behind his house, which he called his \"thinking path\". Modern research suggests their habit was more than a personal quirk.","zh":"从达尔文到乔布斯，许多著名作家和科学家都以靠长时间散步来解决问题而闻名。达尔文甚至在屋后修了一条专用小路，称之为“思考小径”。现代研究表明，他们的这个习惯不只是个人怪癖。"},
+{"en":"In a series of experiments at Stanford University, participants who walked produced significantly more creative ideas than those who sat still. The effect continued for a short time even after they sat down again, and it appeared whether people walked outdoors or on a treadmill facing a blank wall.","zh":"在斯坦福大学的一系列实验中，走路的参与者比静坐的参与者产生了明显更多的创意。即使他们重新坐下后，这种效果还会持续一小段时间；而且无论是在户外散步，还是对着空白墙壁在跑步机上走，效果都会出现。"},
+{"en":"Scientists believe that walking increases blood flow to the brain and puts us in a relaxed but alert state. Because walking requires little conscious attention, the mind is free to wander, making unexpected connections between ideas.","zh":"科学家认为，走路能增加大脑的血流量，让我们处于放松而又警觉的状态。由于走路几乎不需要有意识的注意力，思绪可以自由游走，在想法之间建立意想不到的联系。"},
+{"en":"Walking does not help with every kind of thinking. Tasks that require focused analysis, such as checking calculations, are better done at a desk. But when you are stuck and need a fresh idea, a ten-minute walk may be more productive than another hour of staring at a screen.","zh":"走路并非对每种思考都有帮助。需要专注分析的任务，比如核对计算，最好还是在书桌前完成。但当你卡住了、需要新点子时，散步十分钟可能比再盯着屏幕一小时更有成效。"}],
+"vocab":[
+{"w":"quirk","ipa":"/kwɜːk/","pos":"n.","zh":"怪癖","ex":"Everyone has their own little quirks."},
+{"w":"participant","f":["participants"],"ipa":"/pɑːˈtɪsɪpənt/","pos":"n.","zh":"参与者","ex":"All participants received a certificate."},
+{"w":"alert","ipa":"/əˈlɜːt/","pos":"adj.","zh":"警觉的；清醒的","ex":"Coffee helps me stay alert."},
+{"w":"wander","ipa":"/ˈwɒndə(r)/","pos":"v.","zh":"漫游；（思绪）走神","ex":"My mind began to wander during the lecture."},
+{"w":"analysis","ipa":"/əˈnæləsɪs/","pos":"n.","zh":"分析","ex":"The data needs careful analysis."},
+{"w":"productive","ipa":"/prəˈdʌktɪv/","pos":"adj.","zh":"有成效的；多产的","ex":"It was a very productive meeting."}],
+"questions":[
+{"q":"What did the Stanford experiments show?","o":["Walking outdoors is better than walking indoors","Walking increased creative thinking","Sitting improves memory","Walking makes people tired"],"a":1,"why":"第二段：walked produced significantly more creative ideas。"},
+{"q":"Why does walking help the mind make new connections?","o":["It needs little conscious attention, so the mind can wander","It makes people talk more","It reduces blood flow","It forces people to concentrate"],"a":0,"why":"第三段。"},
+{"q":"For which task is walking LEAST helpful?","o":["Thinking of a new idea","Solving a creative problem","Checking calculations","Planning a story"],"a":2,"why":"最后一段：focused analysis, such as checking calculations。"}]},
+
+{"id":"b09","title":"The Return of the Night Train","topic":"Travel",
+"paragraphs":[
+{"en":"Twenty years ago, night trains in Europe seemed to be disappearing. Cheap flights had made travel between cities fast and affordable, and many railway companies cancelled their sleeper services because they were losing money.","zh":"二十年前，欧洲的夜班火车似乎正在消失。廉价航班让城市间的出行又快又便宜，许多铁路公司因为亏损而取消了卧铺列车服务。"},
+{"en":"Recently, however, sleeper trains have made a surprising comeback. New routes now connect cities such as Vienna, Paris, Amsterdam and Berlin. One reason is growing concern about climate change: a train journey produces a fraction of the emissions of the same trip by plane.","zh":"然而最近，卧铺列车出人意料地回归了。新线路如今连接着维也纳、巴黎、阿姆斯特丹和柏林等城市。原因之一是人们对气候变化日益关注：同样的行程，乘火车产生的排放只是乘飞机的一小部分。"},
+{"en":"Convenience matters too. A traveller can board in the evening in one city centre and arrive the next morning in another, without the long security queues and airport transfers that make short flights tiring. The night itself becomes part of the journey rather than wasted time.","zh":"便利同样重要。旅客可以傍晚在一座城市的市中心上车，第二天早上抵达另一座城市的市中心，免去了让短途飞行令人疲惫的漫长安检排队和机场换乘。夜晚本身成了旅程的一部分，而不是被浪费的时间。"},
+{"en":"Challenges remain. Tickets are often more expensive than flights, and the number of carriages is limited. Still, the revival shows that travellers' priorities are shifting, and that an old idea can find new life when circumstances change.","zh":"挑战依然存在。车票常常比机票贵，车厢数量也有限。尽管如此，这次复兴表明旅客的优先考虑正在改变，而当情况变化时，一个老想法也能焕发新生。"}],
+"vocab":[
+{"w":"affordable","ipa":"/əˈfɔːdəbl/","pos":"adj.","zh":"负担得起的","ex":"We need more affordable housing."},
+{"w":"comeback","ipa":"/ˈkʌmbæk/","pos":"n.","zh":"复兴；回归","ex":"Vinyl records are making a comeback."},
+{"w":"fraction","ipa":"/ˈfrækʃn/","pos":"n.","zh":"小部分；分数","ex":"It costs a fraction of the original price."},
+{"w":"emission","f":["emissions"],"ipa":"/iˈmɪʃn/","pos":"n.","zh":"排放（物）","ex":"Cars are a major source of carbon emissions."},
+{"w":"revival","ipa":"/rɪˈvaɪvl/","pos":"n.","zh":"复兴；复苏","ex":"There has been a revival of interest in folk music."},
+{"w":"priority","f":["priorities"],"ipa":"/praɪˈɒrəti/","pos":"n.","zh":"优先事项","ex":"Safety is our top priority."}],
+"questions":[
+{"q":"Why did many night trains disappear twenty years ago?","o":["Trains were too slow","Cheap flights made them unprofitable","They were banned","People stopped travelling"],"a":1,"why":"第一段：Cheap flights… losing money。"},
+{"q":"Which is given as a reason for their return?","o":["They are cheaper than flights","Concern about climate change","Airports closed","Governments gave free tickets"],"a":1,"why":"第二段：growing concern about climate change。"},
+{"q":"What is a remaining challenge for night trains?","o":["They are often more expensive than flights","They are too fast","They only run in summer","Nobody wants to use them"],"a":0,"why":"最后一段：Tickets are often more expensive than flights。"}]},
+
+{"id":"b10","title":"Machines That Translate","topic":"Technology",
+"paragraphs":[
+{"en":"Not long ago, machine translation was a source of jokes. Online tools produced sentences that were grammatically strange and often completely misleading. Today, translation software can handle everyday conversations, emails and even technical documents with impressive accuracy.","zh":"不久以前，机器翻译还是笑料的来源。在线工具生成的句子语法怪异，常常完全误导人。如今，翻译软件能以惊人的准确度处理日常对话、电子邮件，甚至技术文档。"},
+{"en":"This progress has led some people to ask whether learning foreign languages is still worthwhile. If a phone can translate a menu or a business meeting in real time, why spend years studying vocabulary and grammar?","zh":"这一进步让一些人发问：学外语是否仍然值得？如果手机能实时翻译菜单或商务会议，为什么还要花数年时间学词汇和语法？"},
+{"en":"Linguists offer several answers. Translation tools still struggle with humour, cultural references and subtle shifts in tone. More importantly, communicating through a device is not the same as building a relationship. People tend to trust those who make the effort to speak their language, even imperfectly.","zh":"语言学家给出了几种回答。翻译工具在处理幽默、文化典故和语气的细微变化时仍然吃力。更重要的是，通过设备交流与建立人际关系并不是一回事。人们往往更信任那些努力说自己语言的人，哪怕说得并不完美。"},
+{"en":"There is also a cognitive benefit. Learning a language trains memory and attention, and it gives access to ways of thinking that do not translate neatly. Machines may remove some practical barriers, but they cannot replace the experience of understanding a culture from the inside.","zh":"学语言还有认知上的益处。它锻炼记忆力和注意力，也让人接触到一些无法被干净利落地翻译的思维方式。机器或许能消除一些实际障碍，却无法取代从内部理解一种文化的体验。"}],
+"vocab":[
+{"w":"misleading","ipa":"/ˌmɪsˈliːdɪŋ/","pos":"adj.","zh":"误导性的","ex":"The advertisement was misleading."},
+{"w":"accuracy","ipa":"/ˈækjərəsi/","pos":"n.","zh":"准确性","ex":"The accuracy of the data is important."},
+{"w":"worthwhile","ipa":"/ˌwɜːθˈwaɪl/","pos":"adj.","zh":"值得的","ex":"Volunteering is a worthwhile experience."},
+{"w":"subtle","ipa":"/ˈsʌtl/","pos":"adj.","zh":"细微的；微妙的","ex":"There is a subtle difference between the two colours."},
+{"w":"cognitive","ipa":"/ˈkɒɡnətɪv/","pos":"adj.","zh":"认知的","ex":"Puzzles improve cognitive skills."},
+{"w":"barrier","f":["barriers"],"ipa":"/ˈbæriə(r)/","pos":"n.","zh":"障碍","ex":"Language can be a barrier to communication."}],
+"questions":[
+{"q":"What question has the progress of machine translation raised?","o":["Whether phones are too expensive","Whether learning foreign languages is still worthwhile","Whether grammar is necessary in English","Whether jokes can be translated"],"a":1,"why":"第二段。"},
+{"q":"Which is mentioned as a weakness of translation tools?","o":["They are too slow","They cannot handle humour and tone well","They only work offline","They cannot translate menus"],"a":1,"why":"第三段：struggle with humour, cultural references and subtle shifts in tone。"},
+{"q":"What is the writer's overall view?","o":["Machines will soon replace language learning","Language learning still has value machines cannot replace","Only linguists need foreign languages","Translation tools are useless"],"a":1,"why":"最后一段最后一句。"}]}
+]
