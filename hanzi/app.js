@@ -220,7 +220,7 @@
     if ('speechSynthesis' in window) speechSynthesis.cancel();
     window.scrollTo(0, 0);
     view = v;
-    ({ home, kid: dash, session: runSession, summary, library, settings })[v](arg);
+    ({ home, kid: dash, session: runSession, summary, library, settings, stats })[v](arg);
   }
 
   // ---------- HOME ----------
@@ -240,7 +240,7 @@
             <span class="chip ${done ? 'green' : 'red'}">${done ? '✓ 今天完成' : `今天：复习 ${p.due.length} · 新字 ${p.fresh.length}`}</span>
           </span></button>`;
       }).join('')}</div>`;
-    $app.querySelectorAll('.kid').forEach(b => b.onclick = () => { current = S.kids[+b.dataset.i]; go('kid'); });
+    $app.querySelectorAll('.kid').forEach(b => b.onclick = () => { current = S.kids[+b.dataset.i]; logVisit(current); go('kid'); });
     document.getElementById('set').onclick = () => go('settings');
   }
 
@@ -279,7 +279,9 @@
       <div class="links">
         <button class="card link" id="lib"><b>📚 我的字库</b><span class="muted small">看看学过的所有字</span></button>
         <button class="card link" id="extra2" ${learned(k).length ? '' : 'disabled'}><b>💪 自由复习</b><span class="muted small">多练一会儿，不影响计划</span></button>
+        <button class="card link wide" id="stats"><b>📊 学习记录</b><span class="muted small">每天练了多久、学了几个字</span></button>
       </div>`;
+    document.getElementById('stats').onclick = () => go('stats', { from: 'kid' });
     document.getElementById('back').onclick = () => go('home');
     document.getElementById('lib').onclick = () => go('library');
     const st = document.getElementById('start'); if (st) st.onclick = () => go('session', { mode: 'daily' });
@@ -328,22 +330,30 @@
       learnedNow: [], stars: 0, missed: {}, timeUpShown: false, total: built.q.length };
     $app.innerHTML = `
       <div class="sbar"><button class="icon-btn" id="quit" aria-label="结束">✕</button>
-        <div class="track" title="10 分钟进度"><i id="bar"></i></div><span class="timer" id="clock">0:00</span></div>
+        <div class="track" title="今天的练习时间（目标 10 分钟）"><i id="bar"></i></div><span class="timer" id="clock">0:00</span></div>
       <div class="stage" id="stage"></div>`;
     document.getElementById('quit').onclick = () => finish(true);
-    const tick = () => {
-      session.sec = Math.floor((Date.now() - session.start) / 1000);
-      const s = session.sec;
-      document.getElementById('clock').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
-      document.getElementById('bar').style.width = Math.min(100, s / SESSION_SEC * 100) + '%';
+    lastInput = Date.now();
+    const h0 = k.history[today()] = k.history[today()] || {};
+    h0.lastAt = hhmm();
+    const tick = counting => {
+      if (counting && isActive()) {
+        session.sec++;
+        const h = k.history[today()] = k.history[today()] || {};
+        h.sec = (h.sec || 0) + 1; h.lastAt = hhmm();
+        if (session.sec % 15 === 0) save(k);
+      }
+      const t = todaySec(k);
+      document.getElementById('clock').textContent = Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+      document.getElementById('bar').style.width = Math.min(100, t / SESSION_SEC * 100) + '%';
     };
-    tick(); timerId = setInterval(tick, 1000);
+    tick(false); timerId = setInterval(() => tick(true), 1000);
     step();
   }
 
   function step() {
     const s = session;
-    if (s.mode === 'daily' && s.sec >= SESSION_SEC && !s.timeUpShown) {
+    if (s.mode === 'daily' && todaySec(current) >= SESSION_SEC && !s.timeUpShown) {
       s.timeUpShown = true; markDone();
       if (s.i < s.q.length) { timeUp(); return; }
     }
@@ -508,11 +518,11 @@
     const card = k.cards[c]; if (!card) return;
     s.reviewed++;
     if (g === 'again') {
-      s.wrong++; card.bad = (card.bad || 0) + 1; s.missed[c] = (s.missed[c] || 0) + 1;
+      s.wrong++; bumpToday({ wrong: 1 }); card.bad = (card.bad || 0) + 1; s.missed[c] = (s.missed[c] || 0) + 1;
       if (!item.practice) { card.box = 1; card.due = addDays(1); }
       if (s.missed[c] <= 2) s.q.splice(Math.min(s.q.length, s.i + 3), 0, { t: 'review', c, retry: true, practice: item.practice });
     } else {
-      s.right++; card.ok = (card.ok || 0) + 1;
+      s.right++; bumpToday({ right: 1 }); card.ok = (card.ok || 0) + 1;
       const pts = g === 'good' ? 1 : 0; s.stars += pts; k.stars += pts;
       if (!item.practice && !item.retry) {
         if (item.t === 'check' || card.box === 0) { card.box = 1; card.due = addDays(1); }
@@ -524,6 +534,18 @@
     if (!item.practice) bumpToday({ reviewed: 1 });
     save(k);
   }
+
+  function hhmm() { const d = new Date(); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+  function logVisit(k) {
+    const h = k.history[today()] = k.history[today()] || {};
+    h.visits = (h.visits || 0) + 1; h.firstAt = h.firstAt || hhmm(); h.lastAt = hhmm();
+    save(k);
+  }
+  // active time: counted only while the page is visible and someone touched it in the last 90 s
+  let lastInput = Date.now();
+  ['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, () => { lastInput = Date.now(); }, { passive: true, capture: true }));
+  const isActive = () => document.visibilityState !== 'hidden' && Date.now() - lastInput < 90000;
+  const todaySec = k => ((k.history[today()] || {}).sec || 0);
 
   function bumpToday(d) {
     const k = current, h = k.history[today()] = k.history[today()] || {};
@@ -539,9 +561,8 @@
     const s = session, k = current;
     clearInterval(timerId); timerId = null;
     const h = k.history[today()] = k.history[today()] || {};
-    h.sec = (h.sec || 0) + s.sec;
     const completedQueue = s.i >= s.q.length;
-    if (s.mode === 'daily' && (completedQueue || s.sec >= SESSION_SEC)) markDone();
+    if (s.mode === 'daily' && (completedQueue || todaySec(k) >= SESSION_SEC)) markDone();
     save(k);
     if (quit && s.reviewed === 0 && !s.learnedNow.length) { go('kid'); return; }
     go('summary', { quit, completedQueue });
@@ -609,6 +630,76 @@
     m.onclick = e => { if (e.target === m) m.remove(); };
   }
 
+  // ---------- STATS (学习记录) ----------
+  function fmtMin(sec) { sec = sec || 0; if (!sec) return '0'; const m = Math.floor(sec / 60), r = sec % 60; return m ? (r >= 30 ? m + 1 : m) + ' 分钟' : r + ' 秒'; }
+  function stats(opts) {
+    const k = current, N = 14, days = [];
+    for (let i = N - 1; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push(d); }
+    const rows = days.map(d => { const ds = dayStr(d); return { d, ds, h: k.history[ds] || {} }; });
+    const last7 = rows.slice(-7);
+    const sum7 = last7.reduce((a, r) => a + (r.h.sec || 0), 0);
+    const active7 = last7.filter(r => (r.h.sec || 0) >= 60).length;
+    const hit7 = last7.filter(r => (r.h.sec || 0) >= SESSION_SEC).length;
+    const allSec = Object.values(k.history).reduce((a, h) => a + (h.sec || 0), 0);
+    // chart: minutes per day, fixed 0..maxM scale, 10-minute target line
+    const maxM = Math.max(15, Math.ceil(Math.max(...rows.map(r => (r.h.sec || 0) / 60)) / 5) * 5);
+    const W = Math.round(Math.min(640, Math.max(300, Math.min(window.innerWidth, 720) - 74))), H = 200, L = 30, R = 8, T = 10, B = 26, pw = W - L - R, ph = H - T - B, bw = pw / N;
+    const y = m => T + ph - m / maxM * ph;
+    const ticks = []; for (let m = 0; m <= maxM; m += 5) ticks.push(m);
+    const wk = ['日', '一', '二', '三', '四', '五', '六'];
+    const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="最近 ${N} 天每天练习分钟数" class="chart">
+      ${ticks.map(m => `<line x1="${L}" x2="${W - R}" y1="${y(m)}" y2="${y(m)}" class="gl"/><text x="${L - 6}" y="${y(m) + 4}" class="ax" text-anchor="end">${m}</text>`).join('')}
+      ${rows.map((r, i) => {
+        const m = (r.h.sec || 0) / 60, x = L + i * bw + bw * .18, w = bw * .64, top = y(m), hgt = Math.max(0, T + ph - top);
+        const rr = Math.min(4, w / 2, hgt);
+        const path = hgt > 0 ? `M${x},${T + ph} V${top + rr} Q${x},${top} ${x + rr},${top} H${x + w - rr} Q${x + w},${top} ${x + w},${top + rr} V${T + ph} Z` : '';
+        const tip = `${r.d.getMonth() + 1}月${r.d.getDate()}日：${fmtMin(r.h.sec)}，新字 ${r.h.newCount || 0}，复习 ${r.h.reviewed || 0}`;
+        return `<g class="bar" data-tip="${esc(tip)}"><rect x="${L + i * bw}" y="${T}" width="${bw}" height="${ph}" fill="transparent"/>
+          ${path ? `<path d="${path}" class="${m * 60 >= SESSION_SEC ? 'b-hit' : 'b'}"/>` : ''}
+          <text x="${L + i * bw + bw / 2}" y="${H - 8}" class="ax" text-anchor="middle">${i === N - 1 ? '今' : r.d.getDate()}</text></g>`;
+      }).join('')}
+      <line x1="${L}" x2="${W - R}" y1="${y(10)}" y2="${y(10)}" class="target"/>
+      <text x="${W - R}" y="${y(10) - 6}" class="ax tl" text-anchor="end">目标 10 分钟</text>
+    </svg>`;
+    $app.innerHTML = `<div class="top"><button class="icon-btn" id="back" aria-label="返回">←</button>
+        <h1>📊 ${esc(k.name)}的学习记录</h1><span></span></div>
+      <div class="stats">
+        <div class="stat"><b>${Math.round(sum7 / 60)}</b><span>最近 7 天（分钟）</span></div>
+        <div class="stat"><b>${active7}/7</b><span>有练习的天数</span></div>
+        <div class="stat"><b>${hit7}/7</b><span>练满 10 分钟</span></div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:17px">每天练习时间（分钟）· 最近 ${N} 天</h3>
+        <div class="chart-wrap" id="cw">${svg}<div class="tip" id="tip" hidden></div></div>
+        <p class="muted small" style="margin:6px 0 0">红色柱子表示当天练满了 10 分钟。只计算真正在练习的时间：页面在后台、或超过 90 秒没有操作时不计时。累计总共 ${Math.round(allSec / 60)} 分钟。</p>
+      </div>
+      <div class="card" style="margin-top:16px;padding:12px 0">
+        <div class="tbl-wrap"><table class="tbl">
+          <thead><tr><th>日期</th><th>练习时间</th><th>新字</th><th>复习</th><th>正确率</th><th>打开时间</th></tr></thead>
+          <tbody>${rows.slice().reverse().map(r => {
+            const h = r.h, tot = (h.right || 0) + (h.wrong || 0);
+            return `<tr class="${h.sec ? '' : 'none'}"><td>${r.d.getMonth() + 1}/${r.d.getDate()} 周${wk[r.d.getDay()]}</td>
+              <td>${h.sec ? fmtMin(h.sec) : '—'}${(h.sec || 0) >= SESSION_SEC ? ' ⭐' : ''}</td>
+              <td>${h.newCount || 0}</td><td>${h.reviewed || 0}</td>
+              <td>${tot ? Math.round((h.right || 0) / tot * 100) + '%' : '—'}</td>
+              <td>${h.firstAt ? esc(h.firstAt) + (h.lastAt && h.lastAt !== h.firstAt ? '–' + esc(h.lastAt) : '') : '—'}</td></tr>`;
+          }).join('')}</tbody></table></div>
+      </div>`;
+    document.getElementById('back').onclick = () => go(opts && opts.from === 'settings' ? 'settings' : 'kid');
+    const cw = document.getElementById('cw'), tip = document.getElementById('tip');
+    cw.querySelectorAll('.bar').forEach(g => {
+      const show = () => {
+        cw.querySelectorAll('.bar.on').forEach(x => x.classList.remove('on')); g.classList.add('on');
+        tip.textContent = g.dataset.tip; tip.hidden = false;
+        const br = g.getBoundingClientRect(), cr = cw.getBoundingClientRect();
+        const left = Math.min(Math.max(br.left - cr.left + br.width / 2 - tip.offsetWidth / 2, 0), cr.width - tip.offsetWidth);
+        tip.style.left = left + 'px';
+      };
+      g.addEventListener('pointerenter', show); g.addEventListener('click', show);
+    });
+    cw.addEventListener('pointerleave', () => { tip.hidden = true; cw.querySelectorAll('.bar.on').forEach(x => x.classList.remove('on')); });
+  }
+
   // ---------- SETTINGS (parents) ----------
   function settings() {
     $app.innerHTML = `<div class="top"><button class="icon-btn" id="back" aria-label="返回">←</button><h1>家长设置</h1><span></span></div>
@@ -619,6 +710,7 @@
           <label class="field">名字<input type="text" data-name="${i}" value="${esc(k.name)}" maxlength="12"></label>
           <label class="field" style="grid-column:1/-1">每天新字数量
             <select data-per="${i}">${[2, 3, 4, 5, 6, 8, 10, 12].map(n => `<option ${n === k.perDay ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+          <button class="btn ghost" style="grid-column:1/-1" data-rec="${i}">📊 看 ${esc(k.name)} 的学习记录</button>
           <div class="muted small" style="grid-column:1/-1">认识 ${learned(k).length} 字 · 牢记 ${mastered(k).length} 字 · 连续 ${streak(k)} 天
             · <button class="small" style="text-decoration:underline;color:var(--red)" data-reset="${i}">清空进度</button></div>
         </div>`).join('')}
@@ -635,6 +727,7 @@
     $app.querySelectorAll('[data-name]').forEach(el => el.oninput = () => { S.kids[+el.dataset.name].name = el.value.trim() || '小朋友'; save(S.kids[+el.dataset.name]); });
     $app.querySelectorAll('[data-av]').forEach(el => el.onchange = () => { S.kids[+el.dataset.av].avatar = el.value; save(S.kids[+el.dataset.av]); });
     $app.querySelectorAll('[data-per]').forEach(el => el.onchange = () => { S.kids[+el.dataset.per].perDay = +el.value; save(S.kids[+el.dataset.per]); });
+    $app.querySelectorAll('[data-rec]').forEach(el => el.onclick = () => { current = S.kids[+el.dataset.rec]; go('stats', { from: 'settings' }); });
     $app.querySelectorAll('[data-reset]').forEach(el => el.onclick = () => {
       const k = S.kids[+el.dataset.reset];
       ask(`确定清空「${k.name}」的全部进度吗？此操作无法撤销。`, '清空').then(ok => {
